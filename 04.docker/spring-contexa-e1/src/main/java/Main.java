@@ -1,4 +1,6 @@
 
+import autowiredQualifieretc.Cat;
+import autowiredQualifieretc.Owner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import service.ProductDeliveryService;
 
@@ -34,8 +36,21 @@ public class Main {
         ){
             ProductDeliveryService bean = context.getBean(ProductDeliveryService.class);
             bean.addProducts();
+
         }catch (Exception exception){
             exception.printStackTrace();
+        }
+
+        try(var context = new AnnotationConfigApplicationContext(ProjectConfig.class);){
+            Cat x = context.getBean(Cat.class);
+
+
+            Owner o = context.getBean(Owner.class);
+
+
+            System.out.println(x);
+            System.out.println(o);
+
         }
     }
 }
