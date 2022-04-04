@@ -1,6 +1,7 @@
 
 import autowiredQualifieretc.Cat;
 import autowiredQualifieretc.Owner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import service.ProductDeliveryService;
 
@@ -23,6 +24,9 @@ public class Main {
 
 
 
+
+
+
     public static void main(String[] args) {
         /**
          * this tells the spring @param ProjectConfig.class is the configuration class
@@ -42,15 +46,11 @@ public class Main {
         }
 
         try(var context = new AnnotationConfigApplicationContext(ProjectConfig.class);){
-            Cat x = context.getBean(Cat.class);
 
 
-            Owner o = context.getBean(Owner.class);
-
-
-            System.out.println(x);
-            System.out.println(o);
-
+            Owner bean = context.getBean(Owner.class);
+            Cat cat = context.getBean(Cat.class);
+            System.out.println(bean);
         }
     }
 }
