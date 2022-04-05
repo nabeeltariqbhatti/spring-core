@@ -1,10 +1,11 @@
 
 import autowiredQualifieretc.Cat;
 import autowiredQualifieretc.Owner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 
 /**
  * @author is Nabeel Tariq Bhatti
@@ -15,6 +16,25 @@ import javax.annotation.PostConstruct;
 @Configuration
 @ComponentScan(basePackages = {"repo","service"})
 public class ProjectConfig {
+
+
+    @Bean
+    public DataSource dataSource(){
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setUrl("jdbc:mysql://localhost:3306/sakila");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
+        return dataSource;
+    }
+
+
+    @Bean
+    public JdbcTemplate jdbcTemplate(DataSource dataSource){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(dataSource);
+        return jdbcTemplate;
+
+    }
 
     @Bean
     public Cat cat(){

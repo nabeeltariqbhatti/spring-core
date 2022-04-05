@@ -1,0 +1,27 @@
+import model.Product;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import repo.ProductRepository;
+
+
+/**
+ * @author is Nabeel Tariq Bhatti
+ * @created at 4/5/2022
+ * @Time at 10:41 PM
+ */
+
+
+public class JdbcMain {
+
+    public static void main(String[] args) {
+        try(var context = new AnnotationConfigApplicationContext(ProjectConfig.class)){
+
+            ProductRepository repository = context.getBean(ProductRepository.class);
+            repository.addProduct(new Product().setName("Jersey").setPrice(12));
+            System.out.println(repository.getProducts().size());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

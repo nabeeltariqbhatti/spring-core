@@ -46,8 +46,6 @@ public class Main {
         }
 
         try(var context = new AnnotationConfigApplicationContext(ProjectConfig.class);){
-
-
             Owner bean = context.getBean(Owner.class);
             Cat cat = context.getBean(Cat.class);
             System.out.println(bean);
