@@ -1,7 +1,8 @@
 import model.Product;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import repo.ProductRepository;
+
+import java.util.List;
 
 
 /**
@@ -10,6 +11,23 @@ import repo.ProductRepository;
  * @Time at 10:41 PM
  */
 
+
+enum O{
+
+    DK(List.of("alpha"));
+
+
+    private final List<String> les;
+
+
+
+
+
+
+    O(List<String> les) {
+        this.les = les;
+    }
+}
 
 public class JdbcMain {
 

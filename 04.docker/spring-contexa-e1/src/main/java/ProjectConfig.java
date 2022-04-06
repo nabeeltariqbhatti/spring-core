@@ -14,7 +14,8 @@ import javax.sql.DataSource;
  */
 
 @Configuration
-@ComponentScan(basePackages = {"repo","service"})
+@ComponentScan(basePackages = {"repo","service","aspects"})
+@EnableAspectJAutoProxy
 public class ProjectConfig {
 
 
