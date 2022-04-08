@@ -3,9 +3,12 @@ import autowiredQualifieretc.Cat;
 import autowiredQualifieretc.Owner;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 
 /**
  * @author is Nabeel Tariq Bhatti
@@ -35,6 +38,11 @@ public class ProjectConfig {
         jdbcTemplate.setDataSource(dataSource);
         return jdbcTemplate;
 
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(DataSource dataSource){
+        return new  DataSourceTransactionManager(dataSource);
     }
 
     @Bean

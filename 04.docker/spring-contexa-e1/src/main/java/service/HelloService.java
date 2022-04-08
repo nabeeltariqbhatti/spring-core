@@ -10,11 +10,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class HelloService {
-    
-   public  String hello(String name){
-        return "hello " + name;
-    }
-    public  String hello(String name,String friend){
-        return "hello " + name+"'s friend " + friend ;
+
+    public String hello(String name) {
+        String message = "Hello, " + name + "!";
+        System.out.println( message );
+        return message;
     }
 }

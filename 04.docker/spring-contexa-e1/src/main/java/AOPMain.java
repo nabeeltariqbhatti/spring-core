@@ -19,7 +19,6 @@ public class AOPMain {
 
             HelloService helloService = context.getBean(HelloService.class);
             System.out.println(helloService.hello("Nabeel "));
-//            helloService.hello("Nabeel Rajput ", "Husnain Rajput");
         } catch (Exception e) {
             e.printStackTrace();
         }

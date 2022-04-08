@@ -1,8 +1,7 @@
 package aspects;
 
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,13 +13,37 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class HelloServiceAspect {
+
     @Before("execution(* service.HelloService.hello(..))")
-    public void before(){
-        System.out.println("I am before");
+    public void before() {
+        System.out.println("A");
     }
 
     @After("execution(* service.HelloService.hello(..))")
-    public void after(){
-        System.out.println("I am after");
+    public void after() {
+        System.out.println("B");
+    }
+
+    @AfterReturning("execution(* service.HelloService.hello(..))")
+    public void afterReturning() {
+        System.out.println("C");
+    }
+
+    @AfterThrowing("execution(* service.HelloService.hello(..))")
+    public void afterThrowing() {
+
+    }
+
+    @Around("execution(* service.HelloService.hello(..))")
+    public Object around(ProceedingJoinPoint joinPoint) {
+        System.out.println("A");
+        Object result = null;
+        try {
+            result = joinPoint.proceed(new Object[]{"Bill"});
+            System.out.println("B");
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        return result;
     }
 }

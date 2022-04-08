@@ -12,22 +12,6 @@ import java.util.List;
  */
 
 
-enum O{
-
-    DK(List.of("alpha"));
-
-
-    private final List<String> les;
-
-
-
-
-
-
-    O(List<String> les) {
-        this.les = les;
-    }
-}
 
 public class JdbcMain {
 
