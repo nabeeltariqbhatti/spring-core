@@ -37,7 +37,7 @@ public class ProductRepository {
     public void add() {
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void addProduct(Product product) {
 
         //if all the values are inserted and the attributes whose default values are set then you don't need to specify names
