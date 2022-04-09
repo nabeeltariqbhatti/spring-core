@@ -3,6 +3,7 @@ package service;
 import model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import repo.ProductRepository;
 
@@ -23,7 +24,7 @@ public class ProductDeliveryService {
        productRepository.add();
    }
 
-    @Transactional
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public void addTenProducts(){
         for(int i=0;i<10;i++){
             productRepository.addProduct(new Product().setName("Product"+i).setPrice(i));
