@@ -24,10 +24,10 @@ public class MainTransactional {
 
         try(var context = new AnnotationConfigApplicationContext(ProjectConfig.class);){
             ProductRepository repository = context.getBean(ProductRepository.class);
+            ProductDeliveryService productDeliveryService = context.getBean(ProductDeliveryService.class);
 //            repository.addProduct(new Product().setName("Jersey").setPrice(12));
-            repository.addTenProducts();
+            productDeliveryService.addTenProducts();
 //           System.out.println(repository.getProducts().size());
-            repository.addTenProducts();
         }catch (Exception exception){
             exception.printStackTrace();
         }

@@ -1,7 +1,9 @@
 package service;
 
+import model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import repo.ProductRepository;
 
 /**
@@ -13,11 +15,21 @@ import repo.ProductRepository;
 @Service
 public class ProductDeliveryService {
 
-
     @Autowired
    private ProductRepository productRepository;
+
    public  void addProducts(){
        productRepository.add();
        productRepository.add();
    }
+
+    @Transactional
+    public void addTenProducts(){
+        for(int i=0;i<10;i++){
+            productRepository.addProduct(new Product().setName("Product"+i).setPrice(i));
+            if(i==5) {
+                throw new RuntimeException(":(");
+            }
+        }
+    }
 }

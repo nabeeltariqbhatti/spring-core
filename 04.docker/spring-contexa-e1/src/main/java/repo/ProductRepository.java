@@ -54,15 +54,7 @@ public class ProductRepository {
 
     }
 
-    @Transactional
-    public void addTenProducts(){
-        for(int i=0;i<10;i++){
-            addProduct(new Product().setName("Product"+i).setPrice(i));
-            if(i==5) {
-                throw new RuntimeException(":(");
-            }
-        }
-    }
+
     public List<Product> getProducts() {
         String sql = "SELECT * FROM product";
         return jdbcTemplate.query(sql, new RowMapper<Product>() {
