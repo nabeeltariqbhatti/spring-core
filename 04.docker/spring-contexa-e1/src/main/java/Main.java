@@ -33,10 +33,6 @@ public class Main {
          */
 
         try(var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
-
-
-
-
         ){
             ProductDeliveryService bean = context.getBean(ProductDeliveryService.class);
             bean.addProducts();

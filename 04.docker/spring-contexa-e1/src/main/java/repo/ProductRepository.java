@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
@@ -20,13 +21,23 @@ import java.util.List;
 @Repository
 public class ProductRepository {
 
+    /**
+     *REQUIRES,
+     * REQUIRES_NEW
+     * MANDATORY,
+     * NEVER
+     * SUPPORTS
+     * NOT_SUPPORTED
+     * NESTED-----> spring specific
+     */
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public void add() {
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public void addProduct(Product product) {
 
         //if all the values are inserted and the attributes whose default values are set then you don't need to specify names
@@ -36,11 +47,21 @@ public class ProductRepository {
         String sql = "insert into product (id,name,price) values(NULL,?,?)";
 
         jdbcTemplate.update(sql, product.getName(), product.getPrice());
-        throw new RuntimeException(":(");
+//        throw new RuntimeException(":(");
 
 
 
 
+    }
+
+    @Transactional
+    public void addTenProducts(){
+        for(int i=0;i<10;i++){
+            addProduct(new Product().setName("Product"+i).setPrice(i));
+            if(i==5) {
+                throw new RuntimeException(":(");
+            }
+        }
     }
     public List<Product> getProducts() {
         String sql = "SELECT * FROM product";
