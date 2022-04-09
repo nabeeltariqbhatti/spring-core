@@ -1,7 +1,9 @@
 
 import autowiredQualifieretc.Cat;
 import autowiredQualifieretc.Owner;
+import model.Product;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import repo.ProductRepository;
 import service.ProductDeliveryService;
 
 /**
@@ -21,8 +23,9 @@ public class MainTransactional {
          */
 
         try(var context = new AnnotationConfigApplicationContext(ProjectConfig.class);){
-
-
+            ProductRepository repository = context.getBean(ProductRepository.class);
+            repository.addProduct(new Product().setName("Jersey").setPrice(12));
+           System.out.println(repository.getProducts().size());
         }catch (Exception exception){
             exception.printStackTrace();
         }

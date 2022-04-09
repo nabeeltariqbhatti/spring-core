@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,33 +26,32 @@ public class ProductRepository {
     public void add() {
     }
 
+    @Transactional
     public void addProduct(Product product) {
-
 
         //if all the values are inserted and the attributes whose default values are set then you don't need to specify names
         //otherwise specify names
 
 //        other way "insert into product values(NUL,?,?)";
-        String sql = "insert into product (name,price) values(?,?)";
+        String sql = "insert into product (id,name,price) values(NULL,?,?)";
 
         jdbcTemplate.update(sql, product.getName(), product.getPrice());
+        throw new RuntimeException(":(");
 
 
 
 
     }
-   public List<Product> getProducts(){
-        String sql="select * from product";
+    public List<Product> getProducts() {
+        String sql = "SELECT * FROM product";
         return jdbcTemplate.query(sql, new RowMapper<Product>() {
             @Override
-            public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-                Product product = new Product();
-
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setPrice(rs.getDouble("price"));
-                return product;
+            public Product mapRow(ResultSet resultSet, int i) throws SQLException  {
+                Product p = new Product();
+                p.setId(resultSet.getInt("id"));
+                p.setName(resultSet.getString("name"));
+                p.setPrice(resultSet.getDouble("price"));
+                return p;
             }
         });
     }
