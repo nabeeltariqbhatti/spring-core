@@ -23,7 +23,6 @@ import javax.xml.crypto.Data;
 @EnableTransactionManagement
 public class ProjectConfig {
 
-
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

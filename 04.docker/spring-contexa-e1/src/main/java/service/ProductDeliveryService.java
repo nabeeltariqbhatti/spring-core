@@ -24,7 +24,7 @@ public class ProductDeliveryService {
        productRepository.add();
    }
 
-    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    @Transactional(propagation = Propagation.REQUIRED)
     public void addTenProducts(){
         for(int i=0;i<10;i++){
             productRepository.addProduct(new Product().setName("Product"+i).setPrice(i));

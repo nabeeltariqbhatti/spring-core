@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,17 +32,32 @@ public class ProductRepository {
      * NESTED-----> spring specific
      */
 
+
+    /**
+     * READ_COMMITTED,
+     * READ_UNCOMMITTED
+     * REPEATABLE_READ
+     * SERIALIZABLE
+     *
+     *
+     * problems
+     *   dirty read
+     *   repeatable read
+     *   phantom read
+     */
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public void add() {
     }
 
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.READ_COMMITTED)
     public void addProduct(Product product) {
 
         //if all the values are inserted and the attributes whose default values are set then you don't need to specify names
         //otherwise specify names
+
+
 
 //        other way "insert into product values(NUL,?,?)";
         String sql = "insert into product (id,name,price) values(NULL,?,?)";
